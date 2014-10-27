@@ -85,8 +85,8 @@ phi_shin_max = 3*pi/2 + 17.5*pi/180;
 phi_shin_min = pi - 45*pi/180;
 phi_thigh_max = pi + 45*pi/180;
 phi_thigh_min = pi/2 - 17.5*pi/180;
-phi_roll_max = pi + 45*pi/180;%pi + 16*pi/180;
-phi_roll_min = pi - 45*pi/180;%pi - 9*pi/180;
+phi_roll_max = pi + 16*pi/180;
+phi_roll_min = pi - 9*pi/180;
 phi_max_collision = -5*pi/180;
 
 %% Hip Shaft
