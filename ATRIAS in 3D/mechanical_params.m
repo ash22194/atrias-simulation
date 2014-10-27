@@ -108,6 +108,7 @@ i_torso_products = [0 0 0];
 winch_hook_offset = [0 0.375 -0.2225];
 d_hip_com_to_torso_com = boom_mount_to_hip - com_hshaft(2) + com_torso(2);
 d_pelvis_to_torso = boom_mount_to_hip + com_torso(2);
+d_pelvis_to_IMU = [4.720 18.770 6.327]*2.54/100; 
 
 %% Total masses and inertias
 num_legs = 2;
