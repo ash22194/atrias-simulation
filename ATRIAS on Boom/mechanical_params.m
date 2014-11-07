@@ -38,7 +38,7 @@ r_hip_shaft = 0.542925;
 N_h = r_hip_shaft / r_hip_gearhead;
 mu_hmotor = 0.90;
 b_hmotor = 0;
-i_hrotor_moments = [0 0 1.5e-3];
+i_hrotor_moments = [0 0 3.193e-5];
 max_current_hip = 60;
 Kt_hip = 0.184;
 HIP_MTR_MAX_TORQUE = max_current_hip*Kt_hip*N_h;
@@ -183,10 +183,10 @@ k_gx = m_total*g/0.01; % [N/m]
 v_gx_max = 0.03; %[m/s]
 
 % stiction coefficient
-mu_stick = 1.00;
+mu_stick = 0.9;
 
 % sliding coefficient
-mu_slide = 0.95;
+mu_slide = 0.8;
 
 % slip-stic transition velocity
 vLimit = 0.01; %[m/s]
