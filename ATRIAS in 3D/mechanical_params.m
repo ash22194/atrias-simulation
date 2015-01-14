@@ -65,6 +65,16 @@ com_lowerleg = [0 -0.1513 0];
 m_lowerleg = 0.4438;
 i_lowerleg_moments = [0.01 0 0.01];
 i_lowerleg_products = [0 0 0];
+l_lowerleg = 0.49;
+% Foot
+d_foot_point_front = [0.06350 -0.02515 0];
+d_foot_point_back = [-0.06350 -0.02515 0];
+m_foot = 0.0857;
+com_foot = [0 -0.00959 0];
+i_foot_moments = [0.00001 0.00006 0.00006];
+i_foot_products = [0 0 0];
+ankle_stiffness = 1/2*pi;
+ankle_equilibrium = 25*pi/180;
 % Four Bar Link
 com_fblink = [0 -0.1137 0];
 m_fblink = 0.46;
@@ -155,7 +165,7 @@ k_gy = m_total*g/0.005; % [N/m]
 v_gy_max = 0.03; %[m/s]
 
 % horizontal ground interaction stiffness
-k_gx = m_total*g/0.01; % [N/m]
+k_gx = m_total*g/0.005; % [N/m]
 
 % maximum horizontal ground relaxation speed
 v_gx_max = 0.03; %[m/s]
