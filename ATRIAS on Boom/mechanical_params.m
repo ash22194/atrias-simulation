@@ -119,7 +119,7 @@ counterweight_mass = 24.05;
 
 %% Torso
 boom_mount_to_hip = 0.318;
-boom_mount_to_center = 0.2225;
+boom_mount_to_center = 0.2234;
 boom_mount_to_center_diagonal = boom_mount_to_center / cos(pitch_mount_angle);
 torso_12 = [0 -boom_mount_to_hip -boom_mount_to_center];
 com_torso = [0 0.05 -0.1577];

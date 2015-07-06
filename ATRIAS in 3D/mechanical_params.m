@@ -153,6 +153,11 @@ initial_pitch_joint_height = initial_com_height + boom_mount_to_com;
 initial_hip_roll = 0;
 initial_dx = 0;
 
+%% Rough terrain
+random_terrain_seed = 5;
+terrain_width_in_meters = 10;
+terrain_length_in_meters = 10;
+[ground_height_map, terrain_grid_space] = create_rough_terrain(random_terrain_seed, 0.05, terrain_width_in_meters, terrain_length_in_meters);
 
 %% Ground Contact Model
 % Note: y and z are swapped in 3D (y-variables now correspond to z)
