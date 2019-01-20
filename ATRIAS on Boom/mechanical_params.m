@@ -203,6 +203,21 @@ sm.tile_scale = sm.max_floor_tile_height * sm.tile_scale / max(abs(sm.tile_scale
 %tile_scale = [0 8.2 6.9 12.6 0 20 20 0 0 12.1 15.5 6.3]'./100; % manual heights
 sm.max_floor_tile_height = max(sm.tile_scale);
 % tile_scale(1) = 0;
-%sm.cmap = jet(128);
-%sm.tile_color = sm.cmap(floor((sm.tile_scale/(sm.max_floor_tile_height+eps))*length(sm.cmap))+1,:);
-sm.tile_color = repmat([sm.light_blue; sm.light_gray ],6,1);
+sm.cmap = jet(128);
+sm.tile_color = sm.cmap(floor((sm.tile_scale/(sm.max_floor_tile_height+eps))*length(sm.cmap))+1,:);
+% sm.tile_color = repmat([sm.light_blue; sm.light_gray ],6,1);
+
+%% Motor Control
+sm.Kp_torque_control = 300;
+sm.Kd_torque_control = 200;
+Force_Control = true;
+
+%% Raibert Controller Parameters
+sm.F_thrust = 600; %N
+sm.Kp_hip = 300;   %N/m
+sm.Kd_hip = 100;   %Ns/m
+sm.Kp_lateral = 300; %Nm/rad
+sm.Kd_lateral = 100; %Nms/rad
+sm.Ts = 1; %s
+sm.v_avg = 1; %m/s
+sm.Kv = 0.2;
