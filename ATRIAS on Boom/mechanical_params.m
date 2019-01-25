@@ -3,15 +3,17 @@
 
 %% Environment
 sm.g = 9.803;
+sm.noise_variance = (2e-7)^2;
+sm.noise_scale = 1.0;
 
 %% Motors
 % Saggital
 sm.k_leg_spring = 3500;
 sm.b_leg_spring = 0.075*sqrt(sm.k_leg_spring*0.5*.25^2);
 sm.N = 50;
-sm.mu_motor = 1.0;
+sm.mu_motor = 0.60;
 sm.b_rotor = 0*60/(2*pi)*9.725e-5;
-sm.i_rotor = 1.5e-3; 
+sm.i_rotor = 1.5e-3;
 sm.i_rotor_moments = [0 0 sm.i_rotor];
 sm.i_motor_reflected = sm.i_rotor * sm.N^2;
 sm.r_rotor = 0.001;
@@ -27,7 +29,7 @@ sm.Kb_leg = 0.121;
 sm.R_leg = 0.052;
 sm.L_leg = 0.102e-3;
 sm.max_voltage_leg = 50;
-sm.max_current_leg = 165*0.55;
+sm.max_current_leg = 165;
 sm.LEG_MTR_MAX_TORQUE = sm.max_current_leg * sm.Kt_leg * sm.N; % Nm
 % Lateral
 sm.r_hip_gearhead = 0.009525;
@@ -74,8 +76,8 @@ sm.m_shin = 0.75;
 sm.i_shin_moments = [0.02 0 0.02];
 sm.i_shin_products = [0 0 0];
 % Mechanical Limits Model
-sm.k_phi = 5000; % N/m
-sm.v_phi_max = 1/60; % rad/s
+sm.k_phi = 3000; % N/m
+sm.v_phi_max = 30*pi/180; % rad/s
 sm.delta_phi_min = 25.5*pi/180;
 sm.delta_phi_max = 160*pi/180;
 sm.phi_shin_max = 3*pi/2 + 17.5*pi/180;
@@ -146,11 +148,19 @@ sm.kd_winch = sm.td_winch*sm.kp_winch;
 
 %% Initial parameters
 % -------------------
-z_land = 1.0933;
-sm.initial_l_leg_length = z_land - sm.d_com;
+% Single support
+sm.initial_com_z_from_foot = 1.10;
+sm.initial_l_leg_length = sm.initial_com_z_from_foot - sm.d_com;
 sm.initial_l_leg_angle = pi/2 + pi/2;
 sm.initial_r_leg_length = 0.7;
 sm.initial_r_leg_angle = pi/2 + pi/2;
+% % Double support
+% sm.initial_com_z_from_foot = 1.00;
+% sm.initial_l_leg_angle = pi/2 + pi/2 - 15*pi/180;
+% sm.initial_r_leg_angle = pi/2 + pi/2 + 15*pi/180;
+% sm.initial_l_leg_length = (sm.initial_com_z_from_foot - sm.d_com) / cosd(15);
+% sm.initial_r_leg_length = (sm.initial_com_z_from_foot - sm.d_com) / cosd(15) - 0.20;
+
 sm.thigh_initial_r = sm.initial_r_leg_angle - acos(sm.initial_r_leg_length);
 sm.shin_initial_r = sm.initial_r_leg_angle + acos(sm.initial_r_leg_length);
 sm.thigh_initial_l = sm.initial_l_leg_angle - acos(sm.initial_l_leg_length);
@@ -161,11 +171,11 @@ sm.v_thigh_initial_l =  0;
 sm.v_shin_initial_l =  0;
 sm.initial_boom_yaw = 0;
 sm.initial_boom_pitch = 0;
-sm.initial_com_height = z_land + 0.02;
+sm.initial_com_height = sm.initial_com_z_from_foot + 0.01;
 sm.initial_boom_roll = asin((sm.initial_com_height + sm.boom_mount_to_com + sm.boom_mount_to_center*tan(sm.pitch_mount_angle) - (sm.base_12(2) + sm.yshaft_12(2))) / (sm.l_boom + sm.boom_mount_to_center_diagonal));
-sm.initial_winch_angle = -12 * pi/180;
+sm.initial_winch_angle = -30 * pi/180;
 sm.initial_hip_roll = 0*pi/180;
-sm.initial_dx = 0;
+sm.initial_dx = 0.1;
 sm.initial_boom_yaw_velocity = sm.initial_dx / ((sm.l_boom+sm.boom_mount_to_center_diagonal)*cos(sm.initial_boom_roll));
 
 %% Ground Contact Model
@@ -190,19 +200,22 @@ sm.mu_stick = 0.9;
 sm.mu_slide = 0.8;
 
 % slip-stic transition velocity
-sm.vLimit = 0.01; %[m/s]
+sm.vLimit = 0.001; %[m/s]
 
 % ground height
 sm.floor_tile_width = 30*pi/180;
-sm.max_floor_tile_height = 0*0.96*0.20;
+sm.max_floor_height = 0*0.96*0.20;
 sm.tile_cross_section = [1.5 0.03; 1.5 0; 3 0; 3 0.03];
 sm.tile_delta = [0 1; 0 0; 0 0; 0 1];
 rng(156); % random seed
 sm.tile_scale = rand(2*pi/sm.floor_tile_width,1); % random heights
-sm.tile_scale = sm.max_floor_tile_height * sm.tile_scale / max(abs(sm.tile_scale));
-%tile_scale = [0 8.2 6.9 12.6 0 20 20 0 0 12.1 15.5 6.3]'./100; % manual heights
-sm.max_floor_tile_height = max(sm.tile_scale);
-% tile_scale(1) = 0;
-%sm.cmap = jet(128);
-%sm.tile_color = sm.cmap(floor((sm.tile_scale/(sm.max_floor_tile_height+eps))*length(sm.cmap))+1,:);
-sm.tile_color = repmat([sm.light_blue; sm.light_gray ],6,1);
+sm.tile_scale = sm.max_floor_height * sm.tile_scale / max(abs(sm.tile_scale));
+sm.tile_scale(1) = 0;
+sm.max_floor_height = max(sm.tile_scale);
+sm.use_colormap = false;
+if sm.use_colormap
+  sm.cmap = jet(128);
+  sm.tile_color = sm.cmap(floor((sm.tile_scale/(sm.max_floor_height+eps))*length(sm.cmap))+1,:);
+else
+  sm.tile_color = repmat([sm.light_blue; sm.light_gray],6,1);
+end
