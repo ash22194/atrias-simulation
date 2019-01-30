@@ -213,11 +213,11 @@ sm.Kd_torque_control = 200;
 Force_Control = true;
 
 %% Raibert Controller Parameters
-sm.F_thrust = 600; %N
-sm.Kp_hip = 300;   %N/m
-sm.Kd_hip = 100;   %Ns/m
+sm.F_thrust = 700; %N
+sm.Kp_theta = 1000;   %N/m
+sm.Kd_theta = 400;   %Ns/m
 sm.Kp_lateral = 300; %Nm/rad
 sm.Kd_lateral = 100; %Nms/rad
 sm.Ts = 1; %s
 sm.v_avg = 1; %m/s
-sm.Kv = 0.2;
+sm.Kv = 0.2;    
