@@ -45,6 +45,7 @@ slprj/
 *.mol
 *.manifest
 *.tlh
+*.slxc
 
 # Videos #
 ##########
