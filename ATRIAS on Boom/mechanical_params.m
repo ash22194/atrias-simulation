@@ -212,7 +212,7 @@ sm.tile_scale = rand(2*pi/sm.floor_tile_width,1); % random heights
 sm.tile_scale = sm.max_floor_height * sm.tile_scale / max(abs(sm.tile_scale));
 sm.tile_scale(1) = 0;
 sm.max_floor_height = max(sm.tile_scale);
-sm.use_colormap = false;
+sm.use_colormap = true;
 if sm.use_colormap
   sm.cmap = jet(128);
   sm.tile_color = sm.cmap(floor((sm.tile_scale/(sm.max_floor_height+eps))*length(sm.cmap))+1,:);
