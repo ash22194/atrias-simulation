@@ -17,7 +17,6 @@ ctrl.com_torso = [0, 0, 0.50];
 ctrl.com_leg_motor = [0, ctrl.lateral_offset-0.0149, 0.029];
 ctrl.pelvis_to_imu = [0.11988, -0.16071+0.07366/2, 0.47675];
 ctrl.leg_mtr_gear_ratio = 50;
-ctrl.Force_Control = true;
 
 %% Actuator limits, aftering gearing
 ctrl.max_torque_lateral = 629.28; % [Nm]
@@ -46,8 +45,6 @@ ctrl.initial_x_pos_swing = 0;
 ctrl.initial_z_pos_swing = 1.1;
 ctrl.initial_x_pos_stance = ctrl.initial_x_pos_swing;
 ctrl.initial_z_pos_stance = ctrl.initial_z_pos_swing;
-
-ctrl.stepping_time = 1;
 
 %% Contact detection parameters
 ctrl.twilight_time = 0.000;
@@ -79,7 +76,6 @@ ctrl.min_swing_time = 0.200;   % [s], min time for planning a single support swi
 ctrl.avg_horz_swing_speed = 4; % [m/s], average horizontal swing foot speed for planning time
 ctrl.max_vert_swing_speed = 1; % [m/s], max vertical swing foot speed for planning time
 ctrl.com_x_vel_desired = 0.6;
-ctrl.k_placement = 0.1;
 
 %% Stance - Centroidal Model Feedback Control
 % (See simulink block for details)
@@ -161,12 +157,3 @@ ctrl.kalman_stance_slip_threshold = 0.1;
 ctrl.P0_kalman_transverse = diag([0.015^2, 0.05^2, 0.125^2]); % [m, m/s, m/s^2], initial state error covariance
 ctrl.P0_kalman_no_position = diag([0.05^2, 0.125^2]); % [m/s, m/s^2], initial state error covariance
 ctrl.P0_kalman_vertical = diag([0.015^2, 0.05^2, 0.125^2]); % [m, m/s, m/s^2], initial state error covariance
-
-%% Raibert Control
-ctrl.kd_theta = 150;
-% ctrl.kd_theta = 0;
-ctrl.kp_theta = 1000;
-ctrl.z_com_desired = ctrl.z_swing_target - 0.1;
-ctrl.torso_pitch_desired = 0;
-ctrl.kp_z = 3000;
-ctrl.kd_z = 300;
