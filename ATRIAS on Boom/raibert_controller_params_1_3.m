@@ -67,7 +67,7 @@ ctrl.kp_torque_swing = 5000;
 ctrl.kd_torque_swing = 1.0*2*sqrt(ctrl.kp_torque_swing*ctrl.i_motor);
 ctrl.kp_lateral_swing = 1000;
 ctrl.kd_lateral_swing = 0.8*2*sqrt(ctrl.kp_lateral_swing*ctrl.i_lateral_about_pelvis);
-ctrl.z_retract_flight = 0.20;  % [m], max distance to retract foot from ground (going to flight)
+ctrl.z_retract_flight = 0.10;  % [m], max distance to retract foot from ground (going to flight)
 ctrl.max_z_retract = 0.20; % [m]
 ctrl.min_z_retract = 0.075; % [m]
 ctrl.retract_extend_speed = 1.25; % [m/s]
@@ -163,10 +163,11 @@ ctrl.P0_kalman_vertical = diag([0.015^2, 0.05^2, 0.125^2]); % [m, m/s, m/s^2], i
 
 %% Raibert Control
 
-ctrl.weight_factor = 1.3;
-ctrl.com_x_vel_desired = 1;
-ctrl.kp_theta = 1000;
-ctrl.kd_theta = 150;
+ctrl.weight_factor = 1.1;
+ctrl.F_thrust = ctrl.m_total*ctrl.g*ctrl.weight_factor;
+ctrl.com_x_vel_desired = 0.6;
+ctrl.kp_theta = 150;
+ctrl.kd_theta = 50;
 ctrl.z_com_desired = ctrl.z_swing_target - 0.15;
 ctrl.torso_pitch_desired = 0;
 ctrl.kp_z = 3000;
