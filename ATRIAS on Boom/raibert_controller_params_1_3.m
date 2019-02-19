@@ -51,8 +51,11 @@ ctrl.stepping_time = 1;
 
 %% Contact detection parameters
 ctrl.twilight_time = 0.000;
+ctrl.weight_factor = 1.2;
 ctrl.touchdown_threshold_lo = 120; % [N]
+% ctrl.touchdown_threshold_lo = 70; % [N]
 ctrl.touchdown_threshold_hi = 450; % [N]
+% ctrl.touchdown_threshold_hi = (ctrl.weight_factor + 0.5)*ctrl.m_total*ctrl.g; % [N]
 ctrl.touchdown_force_rate_hi = 5*10^4;
 ctrl.touchdown_dist_hi = 0.03;
 
@@ -163,14 +166,13 @@ ctrl.P0_kalman_vertical = diag([0.015^2, 0.05^2, 0.125^2]); % [m, m/s, m/s^2], i
 
 %% Raibert Control
 
-ctrl.weight_factor = 1.1;
 ctrl.F_thrust = ctrl.m_total*ctrl.g*ctrl.weight_factor;
-ctrl.com_x_vel_desired = 0.6;
+ctrl.com_x_vel_desired = 0.8;
 ctrl.kp_theta = 150;
 ctrl.kd_theta = 50;
 ctrl.z_com_desired = ctrl.z_swing_target - 0.15;
 ctrl.torso_pitch_desired = 0;
 ctrl.kp_z = 3000;
-ctrl.kd_z = 300;
+ctrl.kd_z = 100;
 ctrl.kp_x = 0;
 ctrl.kd_x = 0;

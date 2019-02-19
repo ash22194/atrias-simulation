@@ -163,7 +163,7 @@ ctrl.P0_kalman_vertical = diag([0.015^2, 0.05^2, 0.125^2]); % [m, m/s, m/s^2], i
 
 %% Raibert Control
 
-ctrl.weight_factor = 1.3;
+ctrl.weight_factor = 1.2;
 ctrl.com_x_vel_desired = 1;
 ctrl.kp_theta = 1000;
 ctrl.kd_theta = 150;
