@@ -168,12 +168,12 @@ ctrl.P0_kalman_vertical = diag([0.015^2, 0.05^2, 0.125^2]); % [m, m/s, m/s^2], i
 
 ctrl.min_rest_length = 0.85;
 ctrl.F_thrust = ctrl.m_total*ctrl.g*ctrl.weight_factor;
-ctrl.com_x_vel_desired = 0.8;
+ctrl.com_x_vel_desired = 1;
 ctrl.kp_theta = 1000;
-ctrl.kd_theta = 150;
+ctrl.kd_theta = 250;
 ctrl.z_com_desired = ctrl.z_swing_target - 0.15;
 ctrl.torso_pitch_desired = 0;
-ctrl.kp_l = 5000;
+ctrl.kp_l = 7000;
 ctrl.kd_l = 50;
 ctrl.kp_x = 0;
 ctrl.kd_x = 0;
